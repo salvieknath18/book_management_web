@@ -1,3 +1,5 @@
 export default {
   LOGIN_SUCCESS: "LOGIN_SUCCESS",
+  GET_ALL_USERS: "GET_ALL_USERS",
+  GET_USER: "GET_USER",
 };

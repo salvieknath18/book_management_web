@@ -11,7 +11,7 @@ const INITIAL_STATE: UserState = {
   username: null,
 };
 
-export default (state = INITIAL_STATE, action: AnyAction): UserState => {
+const userData = (state = INITIAL_STATE, action: AnyAction): UserState => {
   switch (action.type) {
     case ActionTypes.LOGIN_SUCCESS:
       console.log(action);
@@ -23,3 +23,5 @@ export default (state = INITIAL_STATE, action: AnyAction): UserState => {
       return state;
   }
 };
+ 
+export default userData;

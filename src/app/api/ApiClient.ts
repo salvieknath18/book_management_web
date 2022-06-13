@@ -24,7 +24,7 @@ export class ApiClient {
     }
   }
 
-  async get(url: string, dispatch: AppDispatch) {
+  async get(url: string) {
     const token = this.getToken();
     const response = await this.client
       .get(url, {
@@ -40,13 +40,13 @@ export class ApiClient {
     return response;
   }
 
-  async delete(url: string, dispatch: AppDispatch) {
+  async delete(url: string) {
     const token = this.getToken();
     const response = await this.client
       .delete(url, {
         headers: {
           Authorization: `Bearer ${token}`,
-          "content-type": "application/x-www-form-urlencoded;charset=utf-8",
+          "content-type": "application/json",
         },
       })
       .catch((err) => {
@@ -56,7 +56,7 @@ export class ApiClient {
     return response;
   }
 
-  async patch(url: string, requestBody: any, dispatch: AppDispatch) {
+  async patch(url: string, requestBody: any) {
     const token = this.getToken();
     const response = await this.client
       .patch(url, requestBody, {
@@ -69,6 +69,21 @@ export class ApiClient {
         this.handleError(err.response);
       });
 
+    return response;
+  }
+
+  async put(url: string, requestBody: any) {
+    const token = this.getToken();
+    const response = await this.client
+      .put(url, requestBody, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "content-type": "application/json",
+        },
+      })
+      .catch((err) => {
+        this.handleError(err.response);
+      });
     return response;
   }
 

@@ -8,7 +8,7 @@ import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import {PersistGate} from 'redux-persist/integration/react'
 
 import { persistor, store } from "./app/store/store";
-import User from "./features/user/user";
+import UsersPage from "./features/user/user";
 import Book from "./features/book/book";
 import Analytics from "./features/analytics/analytics";
 import Login from "./components/login";
@@ -33,7 +33,7 @@ root.render(
             path="home"
             element={<Home />}
           />
-         <Route path="user" element={<User />} />
+         <Route path="user" element={<UsersPage />} />
         <Route path="book" element={<Book />} />
         <Route path="analytics" element={<Analytics />} />
       </Route>

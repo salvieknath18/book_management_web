@@ -16,15 +16,6 @@ function Login() {
 
   const { token } = useAppSelector((state: RootState) => state.userData);
 
-
-  useEffect(() => {
-
-    console.log(token)
-    if (token) {
-      navigate("/home ");
-    }
-  }, []); 
-
   useEffect(() => {
     console.log(token)
     if (token) {

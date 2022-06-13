@@ -6,6 +6,8 @@ import {
   applyMiddleware,
 } from "redux";
 import userData from "./reducers/user/UserReducer";
+import UserMetaData from "./reducers/user/UserDataReducer";
+import UserList from "./reducers/user/UserListReducer";
 import thunk, {
   ThunkAction,
   ThunkDispatch,
@@ -23,6 +25,8 @@ const persistConfig = {
 const enhancer = compose(applyMiddleware(thunk as ThunkMiddleware));
 const reducers = combineReducers({
   userData,
+  UserMetaData,
+  UserList,
 });
 
 
