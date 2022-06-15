@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BookApi } from "../../app/api/BookApi";
+import { BookListApi } from "../../app/api/BookApi";
 import {Book} from "../../app/model/Book"
 import { AgGridReact } from 'ag-grid-react';
 
@@ -8,31 +8,34 @@ import 'ag-grid-community/dist/styles/ag-theme-alpine.css';
 import {Container, Row, Col, Button } from "react-bootstrap";
 import { Icon } from '@iconify/react';
 import EditBook from "./edit_book";
-import { AnyIfEmpty } from "react-redux";
+import ActionTypes from "../../app/store/ActionTypes";
+import { useAppDispatch, useAppSelector } from "../../app/store/hooks";
+import { RootState } from "../../app/store/store";
+import DeleteBook from "./delete_book";
+import AddUser from "../user/add_user";
+import AddBook from "./add_book";
+import ViewBook from "./view_book";
+
 
 
 export default function BooksPage() {
 
-  interface book_data_type  {
-    name: string, 
-    email: string, 
-    role: string
-  }
-
-  const [books, setBooks] = useState([]);
-  const [bookData, setBookdata] = useState([]);
+  //const [books, setBooks] = useState([]);
+  const [bookData, setBookdata] = useState({});
+  const [addShow, setAddShow] = useState(false);
   const [editShow, setEditShow] = useState(false);
+  const [deleteShow, setDeleteShow] = useState(false);
+  const [viewShow, setViewShow] = useState(false);
+  const dispatch = useAppDispatch();
+  const { bookList } = useAppSelector((state: RootState) => state.BookList);
   const fetchBooks = async ()=>{
-    const response: any =  await new BookApi().getBooks()
-    response.data.forEach((elem:any)  => {elem.action = 'test'})
-    setBooks(response.data)
+    const response: any =  await new BookListApi().getBooks()
+    //setBooks(response.data)
+    dispatch({
+      type: ActionTypes.GET_ALL_BOOKS,
+      bookList: response.data,
+    });
 
-  }
-
-  const book_data_dummy: any = {
-    name:"admin", 
-    email: "admin@gmail.com", 
-    role: "admin"
   }
 
   const onClickEdit = (data: any) => {
@@ -40,15 +43,35 @@ export default function BooksPage() {
     setEditShow(true);
   }
 
+  const onClickDelete = (data: any) => {
+    setBookdata(data);
+    setDeleteShow(true);
+  }
+
+  const onClickView = (data: any) => {
+    setBookdata(data);
+    setViewShow(true);
+  }
+
+  const onClickAdd = (data: any) => {
+    setAddShow(true);
+  }
+
   const columnDefs:any = [
-    {field:'name'},
-     { field: 'email' },
-    { field: 'role' },
+    //{field:'isbn'},
+    { field: 'title' },
+    //{ field: 'description' },
+    { field: 'genre' },
+    { field: 'author' },
+    //{ field: 'year_published' },
+    //{ field: 'total_count' },
+    { field: 'available_count' },
     { field: 'action',
     cellRenderer: (data: any)=> {
       return <>
-      <Icon onClick={()=> onClickEdit(data.value) } icon="bxs:edit" />
-      <Icon icon="ant-design:delete-filled" />
+      <Icon onClick={()=> onClickEdit(data.data) } width="28" height="28" color="blue" icon="bxs:edit" />
+      <Icon onClick={()=> onClickDelete(data.data) } width="28" height="28" color="maroon" icon="ant-design:delete-filled" />
+      <Icon onClick={()=> onClickView(data.data) } width="28" height="28" color="green"  icon="carbon:view-filled" />
       </>
     } }
     
@@ -60,24 +83,35 @@ export default function BooksPage() {
 
   return (
     <>
+    {viewShow ?(<ViewBook show={viewShow} setViewShow={setViewShow} bookData={bookData}/>):
+    (
+    <>
       <Container>
         <Row>
-        <Col md={{ span: 5 , offset: 3 }} > 
-        <div className="ag-theme-alpine" style={{ height: 400, width: 800 }}>
+          <div style={{ width: "170px", float: "left", margin : "5px"}}><h2> Book List </h2></div>
+          <div style={{ width: "30%", float: "left", margin : "5px"}}><Button onClick={onClickAdd}>Add Book</Button></div>
+        </Row>
+        <Row>
+        <Col md={{ span: 12 }} > 
+        <div className="ag-theme-alpine" style={{ height: 500, width: "100%" }}>
         <AgGridReact
           defaultColDef={{
             sortable: true,
             filter: true,         
           }}
-          rowData={books}
+          rowData={bookList}
           columnDefs={columnDefs}
         ></AgGridReact>
         </div>
         </Col>
           </Row>
-        </Container>
-        <EditBook show={editShow} setEditShow={setEditShow} bookData={bookData}/>
+      </Container>
+      <EditBook show={editShow} setEditShow={setEditShow} bookData={bookData}/>
+      <DeleteBook show={deleteShow} setDeleteShow={setDeleteShow} bookData={bookData}/>
+      <AddBook show={addShow} setAddShow={setAddShow}/>
    </>
+  )}
+  </>
   )
 }
 

@@ -31,7 +31,8 @@ function Login() {
     console.log(response.data); // check the status etc, handle failing scenario
     dispatch({
       type: ActionTypes.LOGIN_SUCCESS,
-      token: response.data.token,
+      data: response.data,
+
     });
     setIsLoggingIn(false);
   };

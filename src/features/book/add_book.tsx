@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { render } from "react-dom";
-import { UpdateBookAPI, BookListApi } from "../../app/api/BookApi";
+import { AddBookAPI, UpdateBookAPI, BookListApi } from "../../app/api/BookApi";
 import ActionTypes from "../../app/store/ActionTypes";
 import { useAppDispatch } from "../../app/store/hooks";
 
-function EditBook(props:any) {
+function AddBook(props:any) {
     const [show, setShow] = useState(props.show);
-    const handleClose = () => {setShow(false); props.setEditShow(false)}
-    const handleShow = () => {setShow(true); props.setEditShow(true)}
+    const handleClose = () => {setShow(false); props.setAddShow(false)}
+    const handleShow = () => {setShow(true); props.setAddShow(true)}
     const dispatch = useAppDispatch();
 
     const [id, setId] = useState("");
@@ -21,19 +21,6 @@ function EditBook(props:any) {
     const [totalCount, setTotalCount] = useState("");
     const [availableCount, setAvailableCount] = useState("");
 
-
-    useEffect(() =>  {
-      setId(props.bookData.id)
-      setIsbn(props.bookData.isbn)
-      setTitle(props.bookData.title)
-      setDescription(props.bookData.description)
-      setGenre(props.bookData.genre)
-      setAuthor(props.bookData.author)
-      setYearPublished(props.bookData.year_published)
-      setTotalCount(props.bookData.total_count)
-      setAvailableCount(props.bookData.available_count)
-    }, [props.bookData])
-
     useEffect(()=> {
       props.show ? handleShow() : handleClose()
     }, [props.show]);
@@ -42,15 +29,15 @@ function EditBook(props:any) {
         const response: any =  await new BookListApi().getBooks()
         //setBooks(response.data)
         dispatch({
-          type: ActionTypes.GET_ALL_BOOKS,
-          bookList: response.data,
+          type: ActionTypes.GET_ALL_USERS,
+          userList: response.data,
         });
     
       }
 
     const submit = async () => {
         // Can be refactored in better way
-        const response: any = await new UpdateBookAPI().updateBooks(id, isbn, title, description, genre, author, yearPublished, totalCount, availableCount);
+        const response: any = await new AddBookAPI().addBooks(isbn, title, description, genre, author, yearPublished, totalCount, availableCount);
         console.log(response.data); // check the status etc, handle failing scenario
         fetchBooks()
         handleClose()
@@ -68,11 +55,11 @@ function EditBook(props:any) {
           </Modal.Header>
           <Modal.Body>
             <Form>
-              <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                 <Form.Label>ISBN Number</Form.Label>
                 <Form.Control
                   type="text"
-                  defaultValue={isbn}
+                  placeholder="Provide ISBN number of book"
                   autoFocus
                   onChange={(event: any) => {
                     setIsbn(event.target.value);
@@ -84,7 +71,7 @@ function EditBook(props:any) {
                 <Form.Label>Book Title</Form.Label>
                 <Form.Control
                   type="text"
-                  defaultValue={title}
+                  placeholder="Book title"
                   autoFocus
                   onChange={(event: any) => {
                     setTitle(event.target.value);
@@ -96,7 +83,7 @@ function EditBook(props:any) {
                 <Form.Label>Description</Form.Label>
                 <Form.Control
                   type="text"
-                  defaultValue={description}
+                  placeholder="Description on book"
                   autoFocus
                   onChange={(event: any) => {
                     setDescription(event.target.value);
@@ -106,7 +93,7 @@ function EditBook(props:any) {
               </Form.Group>
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput4">
                 <Form.Label>Genre</Form.Label>
-                <Form.Control as="select" value={genre} defaultValue={genre} 
+                <Form.Control as="select" value={genre} placeholder="educational" 
                     onChange={(event: any) => {
                     setGenre(event.target.value);
                   }}>
@@ -114,14 +101,13 @@ function EditBook(props:any) {
                     <option value={"educational"}>Educational</option>
                     <option value={"comedy"}>Comedy</option>
                     <option value={"scienece"}>Scienece</option>
-                    <option value={"technology"}>Technology</option>
                 </Form.Control>
               </Form.Group>
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput5">
                 <Form.Label>Author</Form.Label>
                 <Form.Control
                   type="text"
-                  defaultValue={author}
+                  placeholder="Book Author"
                   autoFocus
                   onChange={(event: any) => {
                     setAuthor(event.target.value);
@@ -133,7 +119,8 @@ function EditBook(props:any) {
                 <Form.Label>Published Date</Form.Label>
                 <Form.Control
                   type="text"
-                  defaultValue={yearPublished}
+                  //to-do Date Picker
+                  placeholder="book Published Date (%d/%m/%Y)"
                   autoFocus
                   onChange={(event: any) => {
                     setYearPublished(event.target.value);
@@ -145,7 +132,7 @@ function EditBook(props:any) {
                 <Form.Label>Total Copies</Form.Label>
                 <Form.Control
                   type="text"
-                  defaultValue={totalCount}
+                  placeholder="Total Copies"
                   autoFocus
                   onChange={(event: any) => {
                     setTotalCount(event.target.value);
@@ -156,8 +143,9 @@ function EditBook(props:any) {
               <Form.Group className="mb-3" controlId="exampleForm.ControlInput8">
                 <Form.Label>Available Copies</Form.Label>
                 <Form.Control
+                  disabled={true}
                   type="text"
-                  defaultValue={availableCount}
+                  placeholder="same as total count {totalCount}"
                   autoFocus
                   onChange={(event: any) => {
                     setAvailableCount(event.target.value);
@@ -180,4 +168,4 @@ function EditBook(props:any) {
     );
   }
   
-  export default EditBook;
+  export default AddBook;

@@ -12,7 +12,7 @@ const INITIAL_STATE: UserListState = {
 const UserList =  (state = INITIAL_STATE, action: AnyAction): UserListState => {
   switch (action.type) {
     case ActionTypes.GET_ALL_USERS:
-      console.log(action);
+      //console.log(action);
       return {
         ...state,
         userList: action.userList,

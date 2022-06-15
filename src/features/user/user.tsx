@@ -12,6 +12,8 @@ import ActionTypes from "../../app/store/ActionTypes";
 import { useAppDispatch, useAppSelector } from "../../app/store/hooks";
 import { RootState } from "../../app/store/store";
 import DeleteUser from "./delete_user";
+import ViewUser from "./view_user";
+import AddUser from "./add_user";
 
 
 
@@ -19,7 +21,9 @@ export default function UsersPage() {
 
   //const [users, setUsers] = useState([]);
   const [userData, setUserdata] = useState({});
+  const [addShow, setAddShow] = useState(false);
   const [editShow, setEditShow] = useState(false);
+  const [viewShow, setViewShow] = useState(false);
   const [deleteShow, setDeleteShow] = useState(false);
   const dispatch = useAppDispatch();
   const { userList } = useAppSelector((state: RootState) => state.UserList);
@@ -43,6 +47,15 @@ export default function UsersPage() {
     setDeleteShow(true);
   }
 
+  const onClickView = (data: any) => {
+    setUserdata(data);
+    setViewShow(true);
+  }
+
+  const onClickAdd = (data: any) => {
+    setAddShow(true);
+  }
+
 
   const columnDefs:any = [
     {field:'name'},
@@ -51,8 +64,9 @@ export default function UsersPage() {
     { field: 'action',
     cellRenderer: (data: any)=> {
       return <>
-      <Icon onClick={()=> onClickEdit(data.data) } icon="bxs:edit" />
-      <Icon onClick={()=> onClickDelete(data.data) } icon="ant-design:delete-filled" />
+      <Icon onClick={()=> onClickEdit(data.data) }  width="28" height="28" color="blue" icon="bxs:edit" />
+      <Icon onClick={()=> onClickDelete(data.data) } width="28" height="28" color="maroon"  icon="ant-design:delete-filled" />
+      <Icon onClick={()=> onClickView(data.data) } width="28" height="28" color="green"  icon="carbon:view-filled" />
       </>
     } }
     
@@ -64,10 +78,17 @@ export default function UsersPage() {
 
   return (
     <>
+      {viewShow ?(<ViewUser show={viewShow} setViewShow={setViewShow} userData={userData}/>):
+      (
+        <>
       <Container>
         <Row>
-        <Col md={{ span: 5 , offset: 3 }} > 
-        <div className="ag-theme-alpine" style={{ height: 400, width: 800 }}>
+          <div style={{ width: "150px", float: "left", margin : "5px"}}><h2> User List </h2></div>
+          <div style={{ width: "30%", float: "left", margin : "5px"}}><Button onClick={onClickAdd}>Add User</Button></div>
+        </Row>
+        <Row>
+        <Col md={{ span: 12 }} > 
+        <div className="ag-theme-alpine" style={{ height: 500, width: "100%" }}>
         <AgGridReact
           defaultColDef={{
             sortable: true,
@@ -82,6 +103,9 @@ export default function UsersPage() {
         </Container>
         <EditUser show={editShow} setEditShow={setEditShow} userData={userData}/>
         <DeleteUser show={deleteShow} setDeleteShow={setDeleteShow} userData={userData}/>
+        <AddUser show={addShow} setAddShow={setAddShow}/>
+        </>
+        )}
    </>
   )
 }

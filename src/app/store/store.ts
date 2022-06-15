@@ -15,6 +15,9 @@ import thunk, {
 } from "redux-thunk";
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import BookList from "./reducers/book/BookListReducer";
+import BookMetaData from "./reducers/book/BookDataReducer";
+import borrowedBookList from "./reducers/borrow/BorrowListReducer";
 
 const persistConfig = {
   key: 'root',
@@ -27,6 +30,9 @@ const reducers = combineReducers({
   userData,
   UserMetaData,
   UserList,
+  BookMetaData,
+  BookList,
+  borrowedBookList
 });
 
 

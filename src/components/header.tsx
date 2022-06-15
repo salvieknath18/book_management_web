@@ -1,21 +1,43 @@
 import React from 'react'
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Button, Col, Container, Nav, Navbar, Row } from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../app/store/hooks';
+import { RootState } from '../app/store/store';
+import ActionTypes from "../app/store/ActionTypes";
 
 export default function Header() {
+  const { role, token, name } = useAppSelector((state: RootState) => state.userData);
+  const navigate = useNavigate();
+   const dispatch = useAppDispatch();
   return (
    <Navbar bg="light" expand="lg">
-  <Container>
+   <Container>
     <Navbar.Brand href="/home">Book Management</Navbar.Brand>
-    <Navbar.Toggle aria-controls="basic-navbar-nav" />
+   { token && <><Navbar.Toggle aria-controls="basic-navbar-nav" />
     <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="me-auto">
         <Nav.Link href="/home">Home</Nav.Link>
-        <Nav.Link href="/user">User</Nav.Link>
+        {role === 'admin' && <Nav.Link href="/user">User</Nav.Link>}
         <Nav.Link href="/book">Book</Nav.Link>
         <Nav.Link href="/Analytics">Analytics</Nav.Link>
       </Nav>
-    </Navbar.Collapse>
-  </Container>
+    </Navbar.Collapse> </> }
+
+{ token && 
+    <Row>
+      <Col>{name}</Col>
+      <Col>
+      <Button 
+      onClick={()=> {
+      dispatch({
+      type: ActionTypes.LOG_OUT,
+    });
+    navigate('/login');
+      }}>LogOut</Button></Col>
+    
+    </Row>
+}
+  </Container> 
 </Navbar>
   )
 }

@@ -56,22 +56,6 @@ export class ApiClient {
     return response;
   }
 
-  async patch(url: string, requestBody: any) {
-    const token = this.getToken();
-    const response = await this.client
-      .patch(url, requestBody, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "content-type": "multipart/form-data",
-        },
-      })
-      .catch((err) => {
-        this.handleError(err.response);
-      });
-
-    return response;
-  }
-
   async put(url: string, requestBody: any) {
     const token = this.getToken();
     const response = await this.client
