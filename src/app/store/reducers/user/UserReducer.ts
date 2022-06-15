@@ -21,6 +21,7 @@ const userData = (state = INITIAL_STATE, action: AnyAction): UserState => {
   switch (action.type) {
     case ActionTypes.LOGIN_SUCCESS:
    
+      console.log(action.data);
       return {
         ...state,
         token: action.data.token,

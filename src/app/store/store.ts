@@ -18,6 +18,7 @@ import storage from 'redux-persist/lib/storage' // defaults to localStorage for 
 import BookList from "./reducers/book/BookListReducer";
 import BookMetaData from "./reducers/book/BookDataReducer";
 import borrowedBookList from "./reducers/borrow/BorrowListReducer";
+import booksByGenre from "./reducers/book/BookByGenre";
 
 const persistConfig = {
   key: 'root',
@@ -32,7 +33,8 @@ const reducers = combineReducers({
   UserList,
   BookMetaData,
   BookList,
-  borrowedBookList
+  borrowedBookList,
+  booksByGenre,
 });
 
 

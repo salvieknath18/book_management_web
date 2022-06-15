@@ -30,3 +30,10 @@ export class DeleteBookAPI extends ApiClient {
     return response;
   };
 }
+
+export class BooksByGenre  extends ApiClient {
+  getBooks = async () => {
+    const response = await this.get("/analytics/booksByGenre");
+    return response;
+  };
+}

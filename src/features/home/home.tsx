@@ -7,9 +7,9 @@ import ViewUser from "../user/view_user";
 
 
 export default function HomePage() {
-  const [userData, setUserdata] = useState({});
+  //const [userData, setUserdata] = useState({});
   const dispatch = useAppDispatch();
-  const { id, name, email, role } = useAppSelector((state: RootState) => state.userData);
+  const userData = useAppSelector((state: RootState) => state.userData);
 
   
   const data = {id: "", name: "", email: "", role: ""}

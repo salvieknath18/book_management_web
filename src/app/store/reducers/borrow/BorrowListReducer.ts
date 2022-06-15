@@ -23,7 +23,7 @@ const borrowedBookList = (state = INITIAL_STATE, action: AnyAction): borrowBookS
    
       return {
         ...state,
-        borrowBooklist: action.data
+        borrowBooklist: action.borrowedBookList
       };
     default :  {
         return state

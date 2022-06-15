@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/store/hooks';
 import { RootState } from '../app/store/store';
 import ActionTypes from "../app/store/ActionTypes";
+import { Icon } from '@iconify/react';
 
 export default function Header() {
   const { role, token, name } = useAppSelector((state: RootState) => state.userData);
@@ -25,6 +26,8 @@ export default function Header() {
 
 { token && 
     <Row>
+      {/* <Col><div><Icon icon="bi:file-person" width="28" height="28" color="blue" style={{ margin:"10px 5px 10px 5px"}}/></div></Col> */}
+      <Col><div><Icon icon="bi:file-person" width="28" height="28" color="blue"/></div></Col>
       <Col>{name}</Col>
       <Col>
       <Button 
