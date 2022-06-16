@@ -2,11 +2,6 @@
 import { AnyAction } from "redux";
 import ActionTypes from "../../ActionTypes";
 
-type gnreDataState = {
-  x: string | null;
-  y: string | null;
-};
-
 type gnreDataStatelist = {
   gnreDatalist: [];
 };

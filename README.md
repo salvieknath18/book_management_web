@@ -2,15 +2,15 @@
 
 ### Setup Environment
 
-In the project directory, you can run:
+In the project directory:
 
-- Required Node Js in the machine to run the application
-- Run the following commands in the project root directory
-- `npm install` to install dependencies
-- `npm start` to start the application
-- Application will open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* To run, the application requires Node Js to be installed on the machine.
+* Run the following commands in the project root directory.
+* npm install to install dependencies.
+* npm start to start the application.
+* The application will open at http://localhost:3000 to view it in the browser
 
-For deployment we can create build as per following instructions:
+For deployment, we can create a build as per the following instructions:
 
 - `npm run build` Builds the app for production to the `build` folder.\
   It correctly bundles React in production mode and optimizes the build for the best performance.
@@ -21,10 +21,10 @@ For deployment we can create build as per following instructions:
 
 ### Assumptions made
 
-While developing the assignment I have made few assumptions
+While developing the assignment, I made a few assumptions.
 
-- User can login and go to home page to return book
-- Only admin can create user so not added signup page, admin can add user from user page by clicking add user button.
+* To return to the book, the user can login and go to the home page.
+* Because only administrators can create users, we did not include a signup page; instead, administrators can add users from the user page by clicking the add user button.
 
 ### Redux setup
 
@@ -36,7 +36,7 @@ We use redux to maintain the state of the data through ou the components in the 
 - Created store in `store.ts` where we can compose all our reducers.
 - Created action types for which we can define actions after dispatching the data.
 - Dispatched data to reducers which is required across the components.
-- We suppose to be write action logic in actions folder for each action type, but due to rapid development with a constraint time I kept that it as improvement.
+- We were supposed to write action logic in the actions folder for each action type, but due to rapid development with a constraint time, I kept it as an improvement.
 
 ### The project file structure
 
@@ -53,7 +53,7 @@ File and folder structure
 
 ### Code Implementation:
 
-While implementing the code React, Typescript, Redux, React-Bootstrap, victory-chart are mainly used
+While implementing the code, React, Typescript, Redux, React-Bootstrap and victory-chart are mainly used
 
 - Implementation consist of creating feature components and reuse the components wherever required.
 - Stored the data in redux which required across the components
@@ -67,7 +67,7 @@ This Web App can be scalable to next level where all library can be managed thro
 - Recommendation Feature : We can add more analytics like what type of books borrowed commonly, which user have major interest in which genre, Such analytics we can get and we suggest more such books to user.
 - Alert to member who overdue the book return date.
 - Adding images of books and user in portal
-- We can add more resources which can borrow and return instead only restrict to books.
+- Instead of limiting ourselves to books, we can add more resources that can be borrowed and returned.
 
 ### Improvements
 

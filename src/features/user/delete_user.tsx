@@ -6,7 +6,6 @@ import { useAppDispatch } from "../../app/store/hooks";
 
 function DeleteUser(props: any) {
   const [show, setShow] = useState(props.show);
-  const [userData, setUserData] = useState(props.userData);
   const handleClose = () => {
     setShow(false);
     props.setDeleteShow(false);
@@ -21,7 +20,6 @@ function DeleteUser(props: any) {
 
   useEffect(() => {
     props.show ? handleShow() : handleClose();
-    setUserData(props.userData);
     setName(props.userData.name);
     setId(props.userData.id);
   }, [props.show, props.userData]);

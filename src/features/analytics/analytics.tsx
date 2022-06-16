@@ -24,12 +24,14 @@ export default function Analytics() {
 
   return (
     <Container>
+      <h4>Analytics Page</h4>
       <Row>
-        <Col lg={6}>
+        <Col lg={5}>
           {" "}
-          <VictoryPie data={data.gnreDatalist} />{" "}
+          <VictoryPie padding={80} data={data.gnreDatalist} />{" "}
         </Col>
-        <Col lg={6}>
+        <Col lg={2}></Col>
+        <Col lg={5}>
           <VictoryChart theme={VictoryTheme.material} domainPadding={20}>
             <VictoryBar
               style={{ data: { fill: "#c43a31" } }}
@@ -45,6 +47,15 @@ export default function Analytics() {
               ]}
             />
           </VictoryChart>
+        </Col>
+      </Row>
+      <Row>
+        <Col lg={5} align="middle">
+          Book By Genre
+        </Col>
+        <Col lg={2}></Col>
+        <Col lg={5} align="middle">
+          Book Statistics(values are static for this chart)
         </Col>
       </Row>
     </Container>

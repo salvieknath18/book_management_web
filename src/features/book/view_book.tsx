@@ -1,18 +1,13 @@
 import { useEffect, useState } from "react";
-import { Button, Form, Modal } from "react-bootstrap";
-import { render } from "react-dom";
-import { UpdateBookAPI, BookListApi } from "../../app/api/BookApi";
-import ActionTypes from "../../app/store/ActionTypes";
-import { useAppDispatch } from "../../app/store/hooks";
+import { Button } from "react-bootstrap";
 import { Icon } from "@iconify/react";
 import Image from "react-bootstrap/Image";
 import { BorrowBook } from "../../app/api/BorrowApi";
 import { useNavigate } from "react-router-dom";
 
 function ViewBook(props: any) {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const [id, setId] = useState("");
+  //const [id, setId] = useState("");
   const [isbn, setIsbn] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -23,7 +18,6 @@ function ViewBook(props: any) {
   const [availableCount, setAvailableCount] = useState("");
 
   useEffect(() => {
-    setId(props.bookData.id);
     setIsbn(props.bookData.isbn);
     setTitle(props.bookData.title);
     setDescription(props.bookData.description);
@@ -56,12 +50,14 @@ function ViewBook(props: any) {
         />{" "}
         Back to Book list
         <div className="row no-gutters">
-          {/* <Image
-            thumbnail={true}
-            className="col-md-2 col-lg-4 square border border-dark"
-            src="src/static/book.jpg"
-            alt="Dispaly Book Image (Future Enhancement)"
-          ></Image> */}
+          {
+            <Image
+              thumbnail={true}
+              className="col-md-2 col-lg-4 square border border-dark"
+              src="static/book.jpg"
+              alt="Dispaly Book Image (Future Enhancement)"
+            ></Image>
+          }
           <div className="col-md-10 col-lg-8">
             <div className="d-flex flex-column">
               <div className="d-flex flex-row justify-content-between align-items-center p-5 bg-dark text-white">

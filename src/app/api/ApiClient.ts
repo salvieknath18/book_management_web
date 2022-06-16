@@ -1,5 +1,5 @@
 import axios from "axios";
-import { AppDispatch, store } from "../store/store";
+import { store } from "../store/store";
 
 const BASE_URL = "http://127.0.0.1:5000/api/";
 

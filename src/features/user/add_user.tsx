@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { AddUserAPI, UpdateUserAPI, UserListApi } from "../../app/api/UserApi";
+import { AddUserAPI, UserListApi } from "../../app/api/UserApi";
 import ActionTypes from "../../app/store/ActionTypes";
 import { useAppDispatch } from "../../app/store/hooks";
 

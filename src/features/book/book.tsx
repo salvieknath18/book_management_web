@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { BookListApi } from "../../app/api/BookApi";
-import { Book } from "../../app/model/Book";
 import { AgGridReact } from "ag-grid-react";
 
 import "ag-grid-community/dist/styles/ag-grid.css";
@@ -12,7 +11,6 @@ import ActionTypes from "../../app/store/ActionTypes";
 import { useAppDispatch, useAppSelector } from "../../app/store/hooks";
 import { RootState } from "../../app/store/store";
 import DeleteBook from "./delete_book";
-import AddUser from "../user/add_user";
 import AddBook from "./add_book";
 import ViewBook from "./view_book";
 

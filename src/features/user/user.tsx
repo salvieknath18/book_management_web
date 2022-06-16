@@ -109,6 +109,7 @@ export default function UsersPage() {
           show={viewShow}
           setViewShow={setViewShow}
           userData={userData}
+          notHomeRequest={true}
         />
       ) : (
         <>

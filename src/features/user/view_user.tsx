@@ -1,20 +1,22 @@
 import { useEffect, useState } from "react";
-import { Button, Card, Form, ListGroup, Modal } from "react-bootstrap";
-import { UpdateUserAPI, UserListApi } from "../../app/api/UserApi";
+import { Button, Card, ListGroup } from "react-bootstrap";
 import ActionTypes from "../../app/store/ActionTypes";
 import { useAppDispatch, useAppSelector } from "../../app/store/hooks";
 import Image from "react-bootstrap/Image";
 import { Icon } from "@iconify/react";
-import { BorrowedBookAPI, ReturnBook } from "../../app/api/BorrowApi";
+import {
+  BorrowedBookAPI,
+  CollectBookByAdmin,
+  ReturnBook,
+} from "../../app/api/BorrowApi";
 import { RootState } from "../../app/store/store";
 import { useNavigate } from "react-router-dom";
 
 function ViewUser(props: any) {
-  const [userData, setUserData] = useState(props.userData);
-  const [bookId, setBookId] = useState("");
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const currentUser = useAppSelector((state: RootState) => state.userData);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState("");
@@ -25,7 +27,6 @@ function ViewUser(props: any) {
   );
 
   useEffect(() => {
-    setUserData(props.userData);
     setName(props.userData.name);
     setEmail(props.userData.email);
     setRole(props.userData.role);
@@ -36,14 +37,6 @@ function ViewUser(props: any) {
     console.log(`view${props.userData}` + JSON.stringify(props.userData));
     fetchBorrowedBooks();
   }, [props.userData]);
-
-  const fetchUsers = async () => {
-    const response: any = await new UserListApi().getUsers();
-    dispatch({
-      type: ActionTypes.GET_ALL_USERS,
-      userList: response.data,
-    });
-  };
 
   const fetchBorrowedBooks = async () => {
     const response: any = await new BorrowedBookAPI().getBorrowedBooks(
@@ -59,7 +52,18 @@ function ViewUser(props: any) {
   const returnRequest = async (id: string) => {
     const response: any = await new ReturnBook().returnBook(id);
     console.log(response.data); // check the status etc, handle failing scenario
-    navigate("/home ");
+    fetchBorrowedBooks();
+    navigate("/home");
+  };
+
+  const returnByAdmin = async (book_id: string, user_id: string) => {
+    const response: any = await new CollectBookByAdmin().returnBook(
+      book_id,
+      user_id
+    );
+    console.log(response.data); // check the status etc, handle failing scenario
+    fetchBorrowedBooks();
+    navigate("/home");
   };
 
   const userListPage = () => {
@@ -69,20 +73,22 @@ function ViewUser(props: any) {
     <>
       {console.log(borrowedBookList.borrowBooklist)}
       <div className="container mt-5 mb-5">
-        <Icon
-          onClick={userListPage}
-          align="right"
-          width="32"
-          height="32"
-          icon="bi:skip-backward-circle"
-        />{" "}
-        Back to User list
+        {props.notHomeRequest && (
+          <Icon
+            onClick={userListPage}
+            align="right"
+            width="32"
+            height="32"
+            icon="bi:skip-backward-circle"
+          />
+        )}{" "}
         <div className="row no-gutters">
-          {/* <Image
+          <Image
             thumbnail={true}
-            className="col-md-2 col-lg-4 square border border-dark"
+            className="col-md-2 col-sm-4 square border border-dark"
             alt="Display User Image (Future Enhancement)"
-          ></Image> */}
+            src="static/avatar.jpg"
+          ></Image>
           <div className="col-md-10 col-lg-8">
             <div className="d-flex flex-column">
               <div className="d-flex flex-row justify-content-between align-items-center p-5 bg-dark text-white">
@@ -120,12 +126,28 @@ function ViewUser(props: any) {
                       Return By: {item.return_date}
                     </ListGroup.Item>
                   </ListGroup>
-                  <Button
-                    variant="primary"
-                    onClick={() => returnRequest(item.book_id)}
-                  >
-                    Return Book
-                  </Button>
+
+                  {(currentUser.role !== "admin" ||
+                    props.userData.id === currentUser.id) && (
+                    <Button
+                      variant="primary"
+                      onClick={() => returnRequest(item.book_id)}
+                    >
+                      Return Book
+                    </Button>
+                  )}
+                  {currentUser.role === "admin" &&
+                    props.userData.id !== currentUser.id && (
+                      <Button
+                        variant="primary"
+                        style={{ margin: 5 }}
+                        onClick={() =>
+                          returnByAdmin(item.book_id, props.userData.id)
+                        }
+                      >
+                        Collect Book
+                      </Button>
+                    )}
                 </Card.Body>
               </Card>
             );

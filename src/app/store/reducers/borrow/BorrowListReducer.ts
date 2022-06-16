@@ -2,13 +2,6 @@
 import { AnyAction } from "redux";
 import ActionTypes from "../../ActionTypes";
 
-type borrowBookState = {
-    book_id: string | null;
-    title: string | null;
-    borrow_date: string| null;
-    return_date:string|null;
-};
-
 type borrowBookStatelist = {
   borrowBooklist:[];
 }

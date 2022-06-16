@@ -6,7 +6,6 @@ import { useAppDispatch } from "../../app/store/hooks";
 
 function DeleteBook(props: any) {
   const [show, setShow] = useState(props.show);
-  const [bookData, setBookData] = useState(props.bookData);
   const handleClose = () => {
     setShow(false);
     props.setDeleteShow(false);
@@ -23,8 +22,6 @@ function DeleteBook(props: any) {
 
   useEffect(() => {
     props.show ? handleShow() : handleClose();
-    setBookData(props.bookData);
-
     setId(props.bookData.id);
     setIsbn(props.bookData.isbn);
     setTitle(props.bookData.title);

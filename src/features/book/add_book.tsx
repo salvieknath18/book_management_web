@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-import { AddBookAPI, UpdateBookAPI, BookListApi } from "../../app/api/BookApi";
+import { AddBookAPI, BookListApi } from "../../app/api/BookApi";
 import ActionTypes from "../../app/store/ActionTypes";
 import { useAppDispatch } from "../../app/store/hooks";
 
@@ -15,7 +15,6 @@ function AddBook(props: any) {
     props.setAddShow(true);
   };
   const dispatch = useAppDispatch();
-  const [id, setId] = useState("");
   const [isbn, setIsbn] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
