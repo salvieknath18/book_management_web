@@ -1,46 +1,79 @@
-# Getting Started with Create React App
+# Book Management Portal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
-
-## Available Scripts
+### Setup Environment
 
 In the project directory, you can run:
 
-### `npm start`
+- Required Node Js in the machine to run the application
+- Run the following commands in the project root directory
+- `npm install` to install dependencies
+- `npm start` to start the application
+- Application will open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+For deployment we can create build as per following instructions:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- `npm run build` Builds the app for production to the `build` folder.\
+  It correctly bundles React in production mode and optimizes the build for the best performance.
 
-### `npm test`
+- The build is minified and the filenames include the hashes.\
+  Your app is ready to be deployed!
+- See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Assumptions made
 
-### `npm run build`
+While developing the assignment I have made few assumptions
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- User can login and go to home page to return book
+- Only admin can create user so not added signup page, admin can add user from user page by clicking add user button.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Redux setup
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+We use redux to maintain the state of the data through ou the components in the app.
 
-### `npm run eject`
+- started development of app with command `npx create-react-app my-app --template redux-typescript` this installs redux along with react and typescript.
+- Created reducers which perform the required actions on the dispatched data.
+- Added required hooks in `hooks.ts`
+- Created store in `store.ts` where we can compose all our reducers.
+- Created action types for which we can define actions after dispatching the data.
+- Dispatched data to reducers which is required across the components.
+- We suppose to be write action logic in actions folder for each action type, but due to rapid development with a constraint time I kept that it as improvement.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### The project file structure
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+created four pages on the portal Home Page, Book Page, User Page, Analytics Page
+File and folder structure
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- Startup file is `index.tsx` at root location calls my App written in `App.tsx`
+- home, book, user and analytics components are added features folder.
+- created seperate folder for seperate feature.
+- each feature have view, add, edit, delete and list component.
+- in component folder kept common component like header and login.
+- in `app` folder, `api` sub folder All API calls are configured.
+- in `model` folder model class are defined.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+### Code Implementation:
 
-## Learn More
+While implementing the code React, Typescript, Redux, React-Bootstrap, victory-chart are mainly used
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Implementation consist of creating feature components and reuse the components wherever required.
+- Stored the data in redux which required across the components
+- Added Modal forms for Create and Edit resource.
+-
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Scalability of Project:
+
+This Web App can be scalable to next level where all library can be managed through this portal.
+
+- Recommendation Feature : We can add more analytics like what type of books borrowed commonly, which user have major interest in which genre, Such analytics we can get and we suggest more such books to user.
+- Alert to member who overdue the book return date.
+- Adding images of books and user in portal
+- We can add more resources which can borrow and return instead only restrict to books.
+
+### Improvements
+
+There are few things which I suppose to be implemented as a part of standard practice, but due to time constraint I didn't got time to implement those
+
+- Data Validation in POST request
+- Unit test cases, We suppose to write Unit test first but due to time constraints I have focused on development of functional requirements first.
+- Admin can assign or remove book for any member (API implemented, Integration Pending)
+- UI wise, Only basic UI implemented, But there is always recommendation for good UX template

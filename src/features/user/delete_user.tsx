@@ -41,10 +41,6 @@ function DeleteUser(props: any) {
     console.log(response.data); // check the status etc, handle failing scenario
     fetchUsers();
     handleClose();
-    // dispatch({
-    //   type: ActionTypes.UPDATE_SUCCESS,
-    //   token: response.data.token,
-    // });
   };
 
   return (

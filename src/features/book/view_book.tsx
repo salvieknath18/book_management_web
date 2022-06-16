@@ -56,12 +56,12 @@ function ViewBook(props: any) {
         />{" "}
         Back to Book list
         <div className="row no-gutters">
-          <Image
+          {/* <Image
             thumbnail={true}
             className="col-md-2 col-lg-4 square border border-dark"
             src="src/static/book.jpg"
             alt="Dispaly Book Image (Future Enhancement)"
-          ></Image>
+          ></Image> */}
           <div className="col-md-10 col-lg-8">
             <div className="d-flex flex-column">
               <div className="d-flex flex-row justify-content-between align-items-center p-5 bg-dark text-white">

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { LoginApi } from "../app/api/LoginApi";
@@ -17,22 +17,19 @@ function Login() {
   const { token } = useAppSelector((state: RootState) => state.userData);
 
   useEffect(() => {
-    console.log(token)
+    console.log(token);
     if (token) {
       navigate("/home ");
     }
-  }, [token]);
+  }, [navigate, token]);
 
   const submit = async () => {
     setIsLoggingIn(true);
-
-    // Can be refactored in better way
     const response: any = await new LoginApi().login(email, password);
-    console.log(response.data); // check the status etc, handle failing scenario
+    console.log(response.data); // To-Do : Need to Address failures here
     dispatch({
       type: ActionTypes.LOGIN_SUCCESS,
       data: response.data,
-
     });
     setIsLoggingIn(false);
   };

@@ -78,11 +78,11 @@ function ViewUser(props: any) {
         />{" "}
         Back to User list
         <div className="row no-gutters">
-          <Image
+          {/* <Image
             thumbnail={true}
             className="col-md-2 col-lg-4 square border border-dark"
             alt="Display User Image (Future Enhancement)"
-          ></Image>
+          ></Image> */}
           <div className="col-md-10 col-lg-8">
             <div className="d-flex flex-column">
               <div className="d-flex flex-row justify-content-between align-items-center p-5 bg-dark text-white">

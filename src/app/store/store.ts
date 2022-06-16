@@ -25,7 +25,6 @@ const persistConfig = {
   storage,
 }
 
-
 const enhancer = compose(applyMiddleware(thunk as ThunkMiddleware));
 const reducers = combineReducers({
   userData,

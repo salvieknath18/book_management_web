@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { VictoryBar, VictoryPie, VictoryChart, VictoryTheme } from "victory";
 import { BooksByGenre } from "../../app/api/BookApi";
@@ -20,7 +20,6 @@ export default function Analytics() {
 
   useEffect(() => {
     fetchBooksByGenre();
-    console.log(data);
   }, []);
 
   return (
