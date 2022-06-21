@@ -31,7 +31,7 @@ function DeleteBook(props: any) {
     const response: any = await new BookListApi().getBooks();
     //setBooks(response.data)
     dispatch({
-      type: ActionTypes.GET_ALL_USERS,
+      type: ActionTypes.GET_ALL_BOOKS,
       bookList: response.data,
     });
   };

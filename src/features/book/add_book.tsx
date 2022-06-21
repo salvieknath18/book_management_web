@@ -18,7 +18,7 @@ function AddBook(props: any) {
   const [isbn, setIsbn] = useState("");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [genre, setGenre] = useState("");
+  const [genre, setGenre] = useState("other");
   const [author, setAuthor] = useState("");
   const [yearPublished, setYearPublished] = useState("");
   const [totalCount, setTotalCount] = useState("");
@@ -32,23 +32,27 @@ function AddBook(props: any) {
     const response: any = await new BookListApi().getBooks();
     //setBooks(response.data)
     dispatch({
-      type: ActionTypes.GET_ALL_USERS,
-      userList: response.data,
+      type: ActionTypes.GET_ALL_BOOKS,
+      bookList: response.data,
     });
   };
 
   const submit = async () => {
     // Can be refactored in better way
-    const response: any = await new AddBookAPI().addBooks(
-      isbn,
-      title,
-      description,
-      genre,
-      author,
-      yearPublished,
-      totalCount,
-      availableCount
-    );
+    const response: any = await new AddBookAPI()
+      .addBooks(
+        isbn,
+        title,
+        description,
+        genre,
+        author,
+        yearPublished,
+        totalCount,
+        availableCount
+      )
+      .catch((err) => {
+        alert("Duplicate book with same ISBN");
+      });
     console.log(response.data); // check the status etc, handle failing scenario
     fetchBooks();
     handleClose();
@@ -112,6 +116,7 @@ function AddBook(props: any) {
                   setGenre(event.target.value);
                 }}
               >
+                <option value={"other"}>Select Genre</option>
                 <option value={"suspense"}>Suspense</option>
                 <option value={"educational"}>Educational</option>
                 <option value={"comedy"}>Comedy</option>
@@ -151,6 +156,7 @@ function AddBook(props: any) {
                 autoFocus
                 onChange={(event: any) => {
                   setTotalCount(event.target.value);
+                  setAvailableCount(event.target.value);
                 }}
                 value={totalCount}
               />
@@ -160,12 +166,12 @@ function AddBook(props: any) {
               <Form.Control
                 disabled={true}
                 type="text"
-                placeholder="same as total count {totalCount}"
+                placeholder={totalCount}
                 autoFocus
                 onChange={(event: any) => {
                   setAvailableCount(event.target.value);
                 }}
-                value={availableCount}
+                value={totalCount}
               />
             </Form.Group>
           </Form>
